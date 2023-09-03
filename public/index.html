@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" id = "html" theme="light">
+    <head>
+        <meta charset = "UTF-8">
+        <title>Node List - Lian Ward</title>
+        <link rel = "shortcut icon" type = "image/x-icon" href = "static/img/ico/favicon.ico" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/assets/bootstrap.min.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/animations.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/colors.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/dimensions.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/fonts.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/gradients.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/layout.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/shadows.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/themes.css" />
+        <script type = "text/javascript" src = "static/js/assets/chart.min.js"></script>
+        <script type = "text/javascript" src = "static/js/assets/three.min.js"></script>
+        <script type = "text/javascript" src = "static/js/assets/vanta.min.js"></script>
+        <script type = "text/javascript" src = "static/js/background.js"></script>
+        <script type = "text/javascript" src = "static/js/chart.js"></script>
+        <script type = "text/javascript" src = "static/js/globals.js"></script>
+        <script type = "text/javascript" src = "static/js/index.js"></script>
+        <script type = "text/javascript" src = "static/js/labels.js"></script>
+        <script type = "text/javascript" src = "https://unpkg.zhimg.com/jquery@3.7.0/dist/jquery.min.js"></script>
+        <script type = "text/javascript" inline = "javascript"> globalsInitialization(); </script>
+    </head>
+    <script>
+        const colorList = [
+            ['rgba(219, 77, 109, 0.8)', 'NAKABENI'],
+            ['rgba(81, 168, 221, 0.8)', 'GUNJYO'],
+            ['rgba(255, 186, 132, 0.8)', 'SHAREGAKI'],
+            ['rgba(224, 60, 138, 0.8)', 'TSUTSUJI'],
+            ['rgba(238, 169, 169, 0.8)', 'TOKI'],
+            ['rgba(93, 172, 129, 0.8)', 'WAKATAKE'],
+            ['rgba(129, 199, 212, 0.8)', 'MIZU'],
+            ['rgba(180, 129, 187, 0.8)', 'BENIFUJI'],
+        ];
+    </script>
+    <style>
+        @media only screen and (max-width: 75rem)
+        {
+            .list-index
+            {
+                margin-top: 15vh;
+                margin-bottom: 15vh;
+                max-width: var(--max-width-index-lg);
+                min-width: var(--min-width-index-lg);
+            }
+        }
+    </style>
+    <body>
+        <div class="background-div" id = "background"></div>
+        <script type = "text/javascript" inline = "javascript"> backgroundInitialization(); </script>
+        <div class = "container list-index">
+            <div class = "row" id="mainRow" style="margin-top: var(--margin-bottom-card)">
+                <div class="col-sm-12">
+                    <div class = "list-card" style="background: rgba(143, 119, 181, 0.38); height: calc(var(--max-height-card) / 2); min-height: 0px;">
+                        <div style="display: flex;justify-content: center;align-items: center;height: 100%;flex-direction: column;">
+                            <p style="color: white; font-size: 2.38rem;font-family: var(--font-family-roboto);margin-bottom: 0px;margin-top: 9px;">Lian Ward</p>
+                            <p style="color: white; font-size: 1.38rem;font-family: var(--font-family-roboto);">LianZhou's Node Monitor</p>
+                        </div>
+                    </div>
+                </div>
+                <script type = "text/javascript" th:inline = "javascript"> labelsInitialization(); </script>
+            </div>
+            <div id = "project-version" class = "text-center" onclick="window.open('https://github.com/LianZiZhou/Ward-LianPanel')" style="cursor: pointer;opacity: 1;">Lian Ward v1.0.0</div>
+        </div>
+        <script>
+            function setUsage(id, usage) {
+                const processor = [
+                    document.getElementById(`${id}-processor-hundreds`),
+                    document.getElementById(`${id}-processor-tens`),
+                    document.getElementById(`${id}-processor-ones`)
+                ];
+                const ram = [
+                    document.getElementById(`${id}-ram-hundreds`),
+                    document.getElementById(`${id}-ram-tens`),
+                    document.getElementById(`${id}-ram-ones`)
+                ];
+                const storage = [
+                    document.getElementById(`${id}-storage-hundreds`),
+                    document.getElementById(`${id}-storage-tens`),
+                    document.getElementById(`${id}-storage-ones`)
+                ];
+                processor[0].innerHTML = Math.floor(usage.processor / 100);
+                processor[1].innerHTML = Math.floor(usage.processor / 10) % 10;
+                processor[2].innerHTML = usage.processor % 10;
+                ram[0].innerHTML = Math.floor(usage.ram / 100);
+                ram[1].innerHTML = Math.floor(usage.ram / 10) % 10;
+                ram[2].innerHTML = usage.ram % 10;
+                storage[0].innerHTML = Math.floor(usage.storage / 100);
+                storage[1].innerHTML = Math.floor(usage.storage / 10) % 10;
+                storage[2].innerHTML = usage.storage % 10;
+                for(const i in processor) {
+                    if(i > 0) processor[i].style.color = (Number(processor[i].innerHTML) + Number(processor[i - 1].innerHTML)) > 0 ? 'var(--color-usage-postfix)' : '';
+                    else processor[i].style.color = Number(processor[i].innerHTML) > 0 ? 'var(--color-usage-postfix)' : '';
+                }
+                for(const i in ram) {
+                    if(i > 0) ram[i].style.color = (Number(ram[i].innerHTML) + Number(ram[i - 1].innerHTML)) > 0 ? 'var(--color-usage-postfix)' : '';
+                    else ram[i].style.color = Number(ram[i].innerHTML) > 0 ? 'var(--color-usage-postfix)' : '';
+                }
+                for(const i in storage) {
+                    if(i > 0) storage[i].style.color = (Number(storage[i].innerHTML) + Number(storage[i - 1].innerHTML)) > 0 ? 'var(--color-usage-postfix)' : '';
+                    else storage[i].style.color = Number(storage[i].innerHTML) > 0 ? 'var(--color-usage-postfix)' : '';
+                }
+            }
+
+            function newCard(backend, color) {
+                const { id, name, online } = backend;
+                document.getElementById('mainRow').innerHTML += `
+                    <div class="col-sm-12 col-xl-6" id="${id}-card">
+                        <div class = "list-card" ${online ? `onclick="window.open('./detail.html?id=${encodeURIComponent(id)}')" style="cursor: pointer;"` : ''}>
+                            <div class = "header">
+                                <div class = "hw-logo" style="background: ${color[0]};"></div>
+                                <div class = "label-hw-info">
+                                    <div class = "hw-type">${name}</div>
+                                    <div class = "hw-name">${online ? backend.info.machine.operatingSystem : '-'}</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4 usage" style="left: 5.5%; width: 28%;">
+                                    <div class = "card-body-squares-grid first xl-hidden">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                    <div class="main-hw-info">
+                                        <div class = "hw-usage">
+                                            <div class = "usage-value">
+                                                <span id = "${id}-processor-hundreds" class = "first">0</span>
+                                                <span id = "${id}-processor-tens" class = "second">0</span>
+                                                <span id = "${id}-processor-ones" class = "third">0</span>
+                                            </div>
+                                            <div class = "usage-postfix">%</div>
+                                        </div>
+                                        <p class = "info-label">PROCESSOR USAGE</p>
+                                        <div class = "usage-underline first"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 usage" style="left: 35.5%; width: 28%;">
+                                    <div class = "card-body-squares-grid second xl-hidden">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                    <div class="main-hw-info">
+                                        <div class = "hw-usage">
+                                            <div class = "usage-value">
+                                                <span id = "${id}-ram-hundreds" class = "first">0</span>
+                                                <span id = "${id}-ram-tens" class = "second">0</span>
+                                                <span id = "${id}-ram-ones" class = "third">0</span>
+                                            </div>
+                                            <div class = "usage-postfix">%</div>
+                                        </div>
+                                        <p class = "info-label">RAM USAGE</p>
+                                        <div class = "usage-underline second"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4 usage" style="left: 65.5%; width: 28%;">
+                                    <div class = "card-body-squares-grid third xl-hidden">
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                    </div>
+                                    <div class="main-hw-info">
+                                        <div class = "hw-usage">
+                                            <div class = "usage-value">
+                                                <span id = "${id}-storage-hundreds" class = "first">0</span>
+                                                <span id = "${id}-storage-tens" class = "second">0</span>
+                                                <span id = "${id}-storage-ones" class = "third">0</span>
+                                            </div>
+                                            <div class = "usage-postfix">%</div>
+                                        </div>
+                                        <p class = "info-label">STORAGE USAGE</p>
+                                        <div class = "usage-underline third"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            fetch('/api/backend').then(res => res.json()).then(res => {
+                for(const backend of res) {
+                    const index = res.indexOf(backend);
+                    const color = colorList[index % colorList.length];
+                    newCard(backend, color);
+                    if(!backend.online) {
+                        document.getElementById(`${backend.id}-card`).style.opacity = 0.5;
+                        backend.usage = { processor: 0, ram: 0, storage: 0 };
+                    }
+                    setUsage(backend.id, backend.usage);
+                }
+                function setListWebSocket() {
+                    const socket = useWebSocket('status:all').then(socket => {
+                        socket.onmessage = (e) => {
+                            const data = JSON.parse(e.data);
+                            if(data.event !== 'update') return;
+                            for(const backend of data.data) {
+                                if(!document.getElementById(`${backend.id}-card`)) {
+                                    const index = data.indexOf(backend);
+                                    const color = colorList[index % colorList.length];
+                                    newCard(backend, color);
+                                }
+                                if(!backend.online) {
+                                    document.getElementById(`${backend.id}-card`).style.opacity = 0.5;
+                                    backend.usage = { processor: 0, ram: 0, storage: 0 };
+                                }
+                                else document.getElementById(`${backend.id}-card`).style.opacity = 1;
+                                setUsage(backend.id, backend.usage);
+                            }
+                        };
+                        socket.onclose = () => {
+                            setListWebSocket();
+                        }
+                    }, () => {
+                        setTimeout(() => {
+                            setListWebSocket();
+                        }, 1000);
+                    });
+                }
+                setListWebSocket();
+            });
+        </script>
+    </body>
+</html>

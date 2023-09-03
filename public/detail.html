@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" id = "html" theme="light">
+    <head>
+        <meta charset = "UTF-8">
+        <title>Node - Lian Ward</title>
+        <link rel = "shortcut icon" type = "image/x-icon" href = "static/img/ico/favicon.ico" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/assets/bootstrap.min.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/animations.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/colors.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/dimensions.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/fonts.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/gradients.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/layout.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/shadows.css" />
+        <link rel = "stylesheet" type = "text/css" href = "static/css/themes.css" />
+        <script type = "text/javascript" src = "static/js/assets/chart.min.js"></script>
+        <script type = "text/javascript" src = "static/js/assets/three.min.js"></script>
+        <script type = "text/javascript" src = "static/js/assets/vanta.min.js"></script>
+        <script type = "text/javascript" src = "static/js/background.js"></script>
+        <script type = "text/javascript" src = "static/js/chart.js"></script>
+        <script type = "text/javascript" src = "static/js/globals.js"></script>
+        <script type = "text/javascript" src = "static/js/index.js"></script>
+        <script type = "text/javascript" src = "static/js/labels.js"></script>
+        <script type = "text/javascript" src = "https://unpkg.zhimg.com/jquery@3.7.0/dist/jquery.min.js"></script>
+        <script type = "text/javascript" inline = "javascript"> globalsInitialization(); </script>
+    </head>
+    <body id = "background" class="detail">
+        <script type = "text/javascript" inline = "javascript"> backgroundInitialization(); </script>
+        <div class = "container index">
+            <div class = "row">
+                <div class = "col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class = "card">
+                        <div class = "header">
+                            <div class = "hw-logo first"></div>
+                            <div class = "label-hw-info">
+                                <div class = "hw-type">Processor</div>
+                                <div class = "hw-name" th:text = "${info.processor.name}"></div>
+                            </div>
+                        </div>
+                        <div class = "usage">
+                            <div class = "card-body-squares-grid first">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class = "main-hw-info">
+                                <div class = "hw-usage">
+                                    <div class = "usage-value">
+                                        <span id = "processor-hundreds" class = "first">0</span>
+                                        <span id = "processor-tens" class = "second">0</span>
+                                        <span id = "processor-ones" class = "third">0</span>
+                                    </div>
+                                    <div class = "usage-postfix">%</div>
+                                </div>
+                                <p class = "info-label">PROCESSOR USAGE</p>
+                                <div class = "usage-underline first"></div>
+                            </div>
+                        </div>
+                        <div class = "footer first">
+                            <div class = "card-footer-dots-grid">
+                                <div class = "first">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                                <div class = "second">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                                <div class = "third">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                            </div>
+                            <div class = "detailed-hw-info">
+                                <div class = "first" th:text = "${info.processor.coreCount}"></div>
+                                <div id = "currentClockSpeed" class = "second" th:text = "${info.processor.clockSpeed}"></div>
+                                <div class = "third" th:text = "${info.processor.bitDepth}"></div>
+                            </div>
+                            <div class = "dividers">
+                                <div class = "first"></div>
+                                <div class = "second"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class = "card">
+                        <div class = "header">
+                            <div class = "hw-logo second"></div>
+                            <div class = "label-hw-info">
+                                <div class = "hw-type">Machine</div>
+                                <div class = "hw-name" th:text = "${info.machine.operatingSystem}"></div>
+                            </div>
+                        </div>
+                        <div class = "usage">
+                            <div class = "card-body-squares-grid second">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class = "main-hw-info">
+                                <div class = "hw-usage">
+                                    <div class = "usage-value">
+                                        <span id = "ram-hundreds" class = "first">0</span>
+                                        <span id = "ram-tens" class = "second">0</span>
+                                        <span id = "ram-ones" class = "third">0</span>
+                                    </div>
+                                    <div class = "usage-postfix">%</div>
+                                </div>
+                                <p class = "info-label">RAM USAGE</p>
+                                <div class = "usage-underline second"></div>
+                            </div>
+                        </div>
+                        <div class = "footer second">
+                            <div class = "card-footer-dots-grid">
+                                <div class = "first">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                                <div class = "second">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                                <div class = "third">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                            </div>
+                            <div class = "detailed-hw-info">
+                                <div class = "first" th:text = "${info.machine.totalRam}"></div>
+                                <div class = "second" th:text = "${info.machine.ramTypeOrOSBitDepth}"></div>
+                                <div id = "currentProcCount" class = "third" th:text = "${info.machine.procCount}"></div>
+                            </div>
+                            <div class = "dividers">
+                                <div class = "first"></div>
+                                <div class = "second"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-sm-12 col-md-6 col-lg-6 col-xl-4">
+                    <div class = "card">
+                        <div class = "header">
+                            <div class = "hw-logo third"></div>
+                            <div class = "label-hw-info">
+                                <div class = "hw-type">Storage</div>
+                                <div class = "hw-name" th:text = "${info.storage.mainStorage}"></div>
+                            </div>
+                        </div>
+                        <div class = "usage">
+                            <div class = "card-body-squares-grid third">
+                                <div></div>
+                                <div></div>
+                                <div></div>
+                            </div>
+                            <div class = "main-hw-info">
+                                <div class = "hw-usage">
+                                    <div class = "usage-value">
+                                        <span id = "storage-hundreds" class = "first">0</span>
+                                        <span id = "storage-tens" class = "second">0</span>
+                                        <span id = "storage-ones" class = "third">0</span>
+                                    </div>
+                                    <div class = "usage-postfix">%</div>
+                                </div>
+                                <div class = "info-label">STORAGE USAGE</div>
+                                <div class = "usage-underline third"></div>
+                            </div>
+                        </div>
+                        <div class = "footer third">
+                            <div class = "card-footer-dots-grid">
+                                <div class = "first">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                                <div class = "second">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                                <div class = "third">
+                                    <div class = "inner-dot"></div>
+                                </div>
+                            </div>
+                            <div class = "detailed-hw-info">
+                                <div id = "currentTotalStorage" class = "first" th:text = "${info.storage.total}"></div>
+                                <div id = "currentDiskCount" class = "second" th:text = "${info.storage.diskCount}"></div>
+                                <div class = "third" th:text = "${info.storage.swapAmount}"></div>
+                            </div>
+                            <div class = "dividers">
+                                <div class = "first"></div>
+                                <div class = "second"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type = "text/javascript" th:inline = "javascript"> labelsInitialization(); </script>
+                <div class = "col-sm-12 col-md-6 col-lg-6 col-xl-4 sm-hidden">
+                    <div class = "card">
+                        <div class = "controls">
+                            <img id = "first-control" class = "first" src = "static/img/controls/left.png" />
+                            <img id = "second-control" class = "second" src = "static/img/controls/right.png" />
+                        </div>
+                        <div class = "pages">
+                            <div id = "logo-page" class = "first">
+                                <div class = "logo">LianWard</div>
+                                <div class="logo-description">
+                                    <div class = "first">SERVER DASHBOARD</div>
+                                    <div id="logo-description-name" class = "second"></div>
+                                </div>
+                                
+                            </div>
+                            <div id = "contacts-page" class = "second">
+                                <div class = "contacts-label">ABOUT</div>
+                                <div class = "contacts-description">
+                                    <div class = "first">From <span onclick="window.open('https://github.com/Rudolf-Barbu/Ward')">WARD</span>, Added Mutli-Server and WS.</div>
+                                    <div class = "second">Edited by LianZhou.</div>
+                                </div>
+                                <div class = "contacts-links">
+                                    <a target="_blank" href = "https://github.com/LianZiZhou/Ward-LianPanel">
+                                        <img class = "first" src = "static/img/links/github.png" />
+                                    </a>
+                                    <a target="_blank" href = "https://lzz.moe">
+                                        <img class = "second" src = "static/img/links/telegram.png" />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "clouds">
+                            <img id = "cloud-left" class = "first" src = "static/img/logo/clouds/left.png" />
+                            <img id = "cloud-right" class = "second" src = "static/img/logo/clouds/right.png" />
+                        </div>
+                        <img class = "background" src = "static/img/logo/background.png" />
+                        <div class = "uptime">
+                            <div class = "uptime-squares-grid">
+                                <div class = "first"></div>
+                                <div class = "second"></div>
+                                <div class = "third"></div>
+                            </div>
+                            <div class = "uptime-rectangle-grid">
+                                <div class = "values-grid">
+                                    <div><p id = "uptime-days" th:text = "${info.uptime.days}"></p></div>
+                                    <div><p id = "uptime-hours" th:text = "${info.uptime.hours}"></p></div>
+                                    <div><p id = "uptime-minutes" th:text = "${info.uptime.minutes}"></p></div>
+                                    <div><p id = "uptime-seconds" th:text = "${info.uptime.seconds}"></p></div>
+                                </div>
+                                <div class = "labels-grid">
+                                    <div>DAYS</div>
+                                    <div>HOURS</div>
+                                    <div>MINUTES</div>
+                                    <div>SECONDS</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "col-lg-12 col-xl-8 sm-hidden">
+                    <div class = "card">
+                        <div class = "chart-label">% Utilization</div>
+                        <div class = "chart-triangle-grid">
+                            <div id = "processor-triangle" class = "first"></div>
+                            <div id = "ram-triangle" class = "second"></div>
+                            <div id = "storage-triangle" class = "third"></div>
+                        </div>
+                        <div class = "chart-rectangle-grid">
+                            <div id = "processor-rectangle" class = "first"></div>
+                            <div id = "ram-rectangle" class = "second"></div>
+                            <div id = "storage-rectangle" class = "third"></div>
+                        </div>
+                        <div class = "chart-container">
+                            <canvas id = "chart-body"></canvas>
+                        </div>
+                        <script type = "text/javascript" th:inline = "javascript"> chartInitialization(); </script>
+                    </div>
+                    <div id = "project-version" class = "text-center" onclick="window.open('https://github.com/LianZiZhou/Ward-LianPanel')" style="cursor: pointer;opacity: 1;">Lian Ward v1.0.0</div>
+                </div>
+            </div>
+        </div>
+        <script type = "text/javascript" th:inline = "javascript"> indexInitialization(); </script>
+    </body>
+</html>
