@@ -1,0 +1,10 @@
+{
+    "apps": [{
+        "name": "lian ward main",
+        "script": "app.js",
+        "error_file": "main_error.log",
+        "out_file": "main_out.log",
+        "log_date_format": "YYYY-MM-DD HH-mm-ss"
+    }]
+}
+  
