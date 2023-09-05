@@ -89,9 +89,13 @@
     --left-uptime-squares-grid: 9.250rem;
     --left-uptime-rectangle-grid: 2.781rem;
     --left-chart-label: 1.500rem;
+    --left-chart-triangle-grid-net-first: 26.625rem;
+    --left-chart-triangle-grid-net-second: 30.500rem;
     --left-chart-triangle-grid-first: 34.375rem;
     --left-chart-triangle-grid-second: 38.250rem;
     --left-chart-triangle-grid-third: 42.125rem;
+    --left-chart-rectangle-grid-net-first: 25.500rem;
+    --left-chart-rectangle-grid-net-second: 29.375rem;
     --left-chart-rectangle-grid-first: 33.250rem;
     --left-chart-rectangle-grid-second: 37.125rem;
     --left-chart-rectangle-grid-third: 41.000rem;
@@ -166,7 +170,7 @@
 
     /* width */
     --width-body: 100%;
-    --width-dhtmlx-message-area 21.875rem;
+    --width-dhtmlx-message-area: 21.875rem;
     --width-setup-div: 21.875rem;
     --width-logo: 21.875rem;
     --width-logo-description: 21.875rem;
@@ -245,6 +249,7 @@
     --border-radius-error-div: 1.250rem;
 
     /* letter-spacing */
+    --letter-spacing-1px: 0.063rem;
     --letter-spacing-2px: 0.125rem;
     --letter-spacing-5px: 0.313rem;
     --letter-spacing-6px: 0.375rem;

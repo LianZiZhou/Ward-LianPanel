@@ -192,13 +192,26 @@
                             <img id = "second-control" class = "second" src = "static/img/controls/right.png" />
                         </div>
                         <div class = "pages">
-                            <div id = "logo-page" class = "first">
+                            <div id="net-page" class="first">
+                                <style>
+                                    .gradient-second-span {
+                                        background:  -webkit-linear-gradient(rgba(200, 100, 187, 1) 51.5%, rgba(129, 199, 212, 1) 50%);
+                                        -webkit-background-clip: text;
+                                        -webkit-text-fill-color: transparent;
+                                    }
+                                </style>
+                                <div class = "net-logo">↑ <span id="net-up"style="color: rgba(129, 199, 212, 1);"></span> <span class="gradient-second-span">/</span> <span id="net-down" style="color: rgba(200, 100, 187, 1);"></span> ↓</div>
+                                <div class="logo-description">
+                                    <div class = "first">NETWORK USAGE</div>
+                                    <div id="node-name" class = "second"></div>
+                                </div>
+                            </div>
+                            <div id = "logo-page" class = "second">
                                 <div class = "logo">LianWard</div>
                                 <div class="logo-description">
                                     <div class = "first">SERVER DASHBOARD</div>
                                     <div id="logo-description-name" class = "second"></div>
                                 </div>
-                                
                             </div>
                             <div id = "contacts-page" class = "second">
                                 <div class = "contacts-label">ABOUT</div>
@@ -248,11 +261,15 @@
                     <div class = "card">
                         <div class = "chart-label">% Utilization</div>
                         <div class = "chart-triangle-grid">
+                            <div id="net-triangle-up" class="net-first"></div>
+                            <div id="net-triangle-down" class="net-second"></div>
                             <div id = "processor-triangle" class = "first"></div>
                             <div id = "ram-triangle" class = "second"></div>
                             <div id = "storage-triangle" class = "third"></div>
                         </div>
                         <div class = "chart-rectangle-grid">
+                            <div id="net-rectangle-up" class="net-first"></div>
+                            <div id="net-rectangle-down" class="net-second"></div>
                             <div id = "processor-rectangle" class = "first"></div>
                             <div id = "ram-rectangle" class = "second"></div>
                             <div id = "storage-rectangle" class = "third"></div>

@@ -33,6 +33,7 @@ function labelsInitialization()
 function labelsTick(usageData)
 {
     let usageDataArray = Object.values(usageData);
+    console.log(usageDataArray);
 
     for (let i = 0; i < usageDataArray.length; i++)
     {

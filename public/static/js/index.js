@@ -15,6 +15,10 @@ function indexInitialization(isList = false)
 
     logoPage = document.getElementById("logo-page");
     contactsPage = document.getElementById("contacts-page");
+    netPage = document.getElementById("net-page");
+
+    logoPage.style.visibility = "hidden";
+    contactsPage.style.visibility = "hidden";
 
     showCards();
 
@@ -29,6 +33,8 @@ function indexInitialization(isList = false)
 
     cloudLeft = document.getElementById("cloud-left");
     cloudRight = document.getElementById("cloud-right");
+    cloudLeft.style.animation = "fade-out-cloud-left 0.3s forwards";
+    cloudRight.style.animation = "fade-out-cloud-right 0.3s forwards";
 
     days = document.getElementById("uptime-days");
     hours = document.getElementById("uptime-hours");
@@ -52,6 +58,7 @@ function useWebSocket(channel) {
         const socket = new WebSocket((location.protocol === 'http:' ? 'ws://' : 'wss://') + location.host + '/api/socket?channel=' + encodeURIComponent(channel));
         socket.onopen = () => {
             setInterval(() => {
+                if (socket.readyState !== 1) return;
                 socket.send(JSON.stringify({
                     event: 'ping'
                 }));
@@ -65,7 +72,7 @@ function useWebSocket(channel) {
 }
 
 function setWebSocket(id) {
-    const socket = useWebSocket('status:' + id).then(socket => {
+    useWebSocket('status:' + id).then(socket => {
         socket.onmessage = (e) => {
             const data = JSON.parse(e.data);
             if(data.event === 'update') {
@@ -99,6 +106,7 @@ function fetchBackend(id) {
         $('.detailed-hw-info .second').eq(1).html(info.machine.ramTypeOrOSBitDepth);
         $('.detailed-hw-info .third').eq(2).html(info.storage.swapAmount);
         $('#logo-description-name').html(('NODE-' + id).toLocaleUpperCase());
+        $('#node-name').html(('NODE-' + id).toLocaleUpperCase());
         sendInfoRequest(info);
         sendUsageRequest(usage);
         setWebSocket(id);
@@ -154,9 +162,19 @@ function getRandomSequenceArray()
 /**
  * Sending ajax request to receive usage info
  */
+
 function sendUsageRequest(response)
 {
-    labelsTick(response);
+    let { networkUpload, networkDownload } = response;
+    networkUpload = formatBytes(networkUpload);
+    networkDownload = formatBytes(networkDownload);
+    document.getElementById("net-up").innerHTML = networkUpload;
+    document.getElementById("net-down").innerHTML = networkDownload;
+    labelsTick({
+        processor: response.processor,
+        ram: response.ram,
+        storage: response.storage
+    });
     chartTick(response);
 }
 
@@ -176,6 +194,18 @@ function sendInfoRequest(response)
     seconds.innerHTML = response.uptime.seconds;
 }
 
+function formatBytes(bytes) {
+    if (bytes === 0) return '0.00 KB';
+
+    const k = 1024;
+    const sizes = ['KB', 'MB', 'GB', 'TB', 'PB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    if(i === 0) return (bytes / 1024).toFixed(2) + ' ' + sizes[i];
+
+    return (bytes / Math.pow(k, i)).toFixed(2) + ' ' + sizes[i - 1];
+}
+
 /**
  * Changes page
  *
@@ -188,7 +218,7 @@ function changePage(element)
         currentPage -= 1;
         setCloudAnimation(currentPage);
     }
-    else if ((String(element.id) == "second-control") && (currentPage < 2))
+    else if ((String(element.id) == "second-control") && (currentPage < 3))
     {
         currentPage += 1;
         setCloudAnimation(currentPage);
@@ -209,15 +239,23 @@ function setPageVisibility(newPage)
     {
         case 1:
         {
-            logoPage.style.visibility = "";
+            netPage.style.visibility = "";
+            logoPage.style.visibility = "hidden";
             contactsPage.style.visibility = "hidden";
             break;
         }
         case 2:
         {
+            netPage.style.visibility = "hidden";
+            logoPage.style.visibility = "";
+            contactsPage.style.visibility = "hidden";
+            break;
+        }
+        case 3:
+        {
+            netPage.style.visibility = "hidden";
             logoPage.style.visibility = "hidden";
             contactsPage.style.visibility = "";
-            break;
         }
     }
 }
@@ -233,11 +271,17 @@ function setCloudAnimation(newSquareScale)
     {
         case 1:
         {
+            cloudLeft.style.animation = "fade-out-cloud-left 0.3s forwards";
+            cloudRight.style.animation = "fade-out-cloud-right 0.3s forwards";
+            break;
+        }
+        case 2:
+        {
             cloudLeft.style.animation = "fade-in-cloud-left 0.3s forwards";
             cloudRight.style.animation = "fade-in-cloud-right 0.3s forwards";
             break;
         }
-        case 2:
+        case 3:
         {
             cloudLeft.style.animation = "fade-out-cloud-left 0.3s forwards";
             cloudRight.style.animation = "fade-out-cloud-right 0.3s forwards";
@@ -262,6 +306,12 @@ function setControlOpacity(newSquareScale)
             break;
         }
         case 2:
+        {
+            firstControl.style.opacity = "1";
+            secondControl.style.opacity = "1";
+            break;
+        }
+        case 3:
         {
             firstControl.style.opacity = "1";
             secondControl.style.opacity = "0.5";

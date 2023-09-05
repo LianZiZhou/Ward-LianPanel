@@ -5,12 +5,16 @@
  */
 function chartInitialization()
 {
+    let netUpRectangle = document.getElementById("net-rectangle-up");
+    let netDownRectangle = document.getElementById("net-rectangle-down");
     let processorRectangle = document.getElementById("processor-rectangle");
     let ramRectangle = document.getElementById("ram-rectangle");
     let storageRectangle = document.getElementById("storage-rectangle");
 
     let ctx = document.getElementById("chart-body").getContext("2d");
 
+    netUpTriangle = document.getElementById("net-triangle-up");
+    netDownTriangle = document.getElementById("net-triangle-down");
     processorTriangle = document.getElementById("processor-triangle");
     ramTriangle = document.getElementById("ram-triangle");
     storageTriangle = document.getElementById("storage-triangle");
@@ -50,6 +54,26 @@ function chartInitialization()
                     pointBackgroundColor: "rgba(255, 255, 255, 1)",
                     pointHoverBackgroundColor: "rgba(212, 242, 225, 1)",
                     backgroundColor: "rgba(212, 242, 225, 0.3)",
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                },
+                {
+                    borderWidth: 1.5,
+                    borderColor: "rgba(129, 199, 212, 1)",
+                    pointRadius: 2,
+                    pointHoverRadius: 3,
+                    pointBackgroundColor: "rgba(255, 255, 255, 1)",
+                    pointHoverBackgroundColor: "rgba(129, 199, 212, 0.5)",
+                    backgroundColor: "rgba(129, 199, 212, 0.3)",
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                },
+                {
+                    borderWidth: 1.5,
+                    borderColor: "rgba(180, 129, 187, 1)",
+                    pointRadius: 2,
+                    pointHoverRadius: 3,
+                    pointBackgroundColor: "rgba(255, 255, 255, 1)",
+                    pointHoverBackgroundColor: "rgba(180, 129, 187, 0.5)",
+                    backgroundColor: "rgba(180, 129, 187, 0.3)",
                     data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                 }
             ]
@@ -155,8 +179,11 @@ function chartInitialization()
     processorRectangle.addEventListener("click", function(event) {hideDataset(event.target || event.srcElement)});
     ramRectangle.addEventListener("click", function(event) {hideDataset(event.target || event.srcElement)});
     storageRectangle.addEventListener("click", function(event) {hideDataset(event.target || event.srcElement)});
+    netUpRectangle.addEventListener("click", function(event) {hideDataset(event.target || event.srcElement)});
+    netDownRectangle.addEventListener("click", function(event) {hideDataset(event.target || event.srcElement)});
 }
 
+const upDataset = [], downDataset = [];
 /**
  * Updates datasets shifting previous values
  *
@@ -167,10 +194,43 @@ function chartTick(usageData)
 {
     let datasets = chart.data.datasets;
 
+    console.log(datasets);
+
     for (let i = 0; i < datasets.length; i++)
     {
         let dataset = datasets[i].data;
         let usageDataArray = Object.values(usageData);
+
+        if(i == 3 || i == 4) {
+            if(i == 3) {
+                upDataset.push(usageDataArray[i]);
+                if(upDataset.length > 40) {
+                    upDataset.shift();
+                }
+                while (upDataset.length < 40) {
+                    upDataset.unshift(0);
+                }
+                const netMax = Math.max(...upDataset.concat(downDataset));
+                for(let j = 20; j < upDataset.length; j++) {
+                    dataset[j - 20] = (upDataset[j] / netMax) * 100;
+                }
+                continue;
+            }
+            if(i == 4) {
+                downDataset.push(usageDataArray[i]);
+                if(downDataset.length > 40) {
+                    downDataset.shift();
+                }
+                while (downDataset.length < 40) {
+                    downDataset.unshift(0);
+                }
+                const netMax = Math.max(...upDataset.concat(downDataset));
+                for(let j = 20; j < downDataset.length; j++) {
+                    dataset[j - 20] = (downDataset[j] / netMax) * 100;
+                }
+                continue;
+            }
+        }
 
         for (let k = 0; k < dataset.length - 1; k++)
         {
@@ -210,6 +270,20 @@ function hideDataset(element)
             storageTriangle.style.animation = (chart.getDatasetMeta(2).hidden) ? "fade-in-triangle 0.5s forwards" : "fade-out-triangle 0.5s forwards";
 
             chart.getDatasetMeta(2).hidden = (chart.getDatasetMeta(2).hidden) ? false : true;
+            break;
+        }
+        case "net-rectangle-up":
+        {
+            netUpTriangle.style.animation = (chart.getDatasetMeta(3).hidden) ? "fade-in-triangle 0.5s forwards" : "fade-out-triangle 0.5s forwards";
+
+            chart.getDatasetMeta(3).hidden = (chart.getDatasetMeta(3).hidden) ? false : true;
+            break;
+        }
+        case "net-rectangle-down":
+        {
+            netDownTriangle.style.animation = (chart.getDatasetMeta(4).hidden) ? "fade-in-triangle 0.5s forwards" : "fade-out-triangle 0.5s forwards";
+
+            chart.getDatasetMeta(4).hidden = (chart.getDatasetMeta(4).hidden) ? false : true;
             break;
         }
     }

@@ -89,12 +89,16 @@ html[theme = "light"]
     --background-uptime-squares-grid-third: var(--green-light);
     --background-values-grid-div: var(--white-opacity-70);
     --background-labels-grid-div: var(--white-opacity-90);
+    --background-chart-rectangle-grid-net-first: rgba(129, 199, 212, 0.3);
+    --background-chart-rectangle-grid-net-second: rgba(180, 129, 187, 0.3);
     --background-chart-rectangle-grid-first: var(--blue-light);
     --background-chart-rectangle-grid-second: var(--red-light);
     --background-chart-rectangle-grid-third: var(--green-light);
     --background-error-div: var(--white);
 
     /* border-color */
+    --border-color-chart-triangle-grid-net-first: rgba(129, 199, 212, 1);
+    --border-color-chart-triangle-grid-net-second: rgba(180, 129, 187, 1);
     --border-color-chart-triangle-grid-first: var(--blue);
     --border-color-chart-triangle-grid-second: var(--red);
     --border-color-chart-triangle-grid-third: var(--green);

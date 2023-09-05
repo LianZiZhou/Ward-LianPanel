@@ -83,6 +83,8 @@ let currentDiskCount
 /**
  * Used to manipulate processor triangle div
  */
+let netUpTriangle;
+let netDownTriangle;
 let processorTriangle;
 
 /**
@@ -114,7 +116,7 @@ let secondControl;
  * Used to determine logo page
  */
 let logoPage;
-
+let netPage;
 /**
  * Used to determine info page
  */

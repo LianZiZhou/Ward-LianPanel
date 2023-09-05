@@ -48,6 +48,19 @@ body.detail
     color: var(--color-logo);
 }
 
+.net-logo
+{
+    position: absolute;
+    top: 2.788rem;
+    z-index: 1;
+    width: var(--width-logo);
+    text-align: center;
+    letter-spacing: var(--letter-spacing-1px);
+    font-size: var(--font-size-21pt);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-logo);
+}
+
 .logo-description > .first
 {
     position: absolute;
@@ -1018,6 +1031,18 @@ body.detail
     animation-fill-mode: forwards;
 }
 
+.chart-triangle-grid > .net-first
+{
+    left: var(--left-chart-triangle-grid-net-first);
+    border-color: var(--border-color-chart-triangle-grid-net-first) transparent;
+}
+
+.chart-triangle-grid > .net-second
+{
+    left: var(--left-chart-triangle-grid-net-second);
+    border-color: var(--border-color-chart-triangle-grid-net-second) transparent;
+}
+
 .chart-triangle-grid > .first
 {
     left: var(--left-chart-triangle-grid-first);
@@ -1054,6 +1079,18 @@ body.detail
 .chart-rectangle-grid > div:active
 {
     transform: var(--transform-chart-rectangle-grid-div-active);
+}
+
+.chart-rectangle-grid > .net-first
+{
+    left: var(--left-chart-rectangle-grid-net-first);
+    background: var(--background-chart-rectangle-grid-net-first);
+}
+
+.chart-rectangle-grid > .net-second
+{
+    left: var(--left-chart-rectangle-grid-net-second);
+    background: var(--background-chart-rectangle-grid-net-second);
 }
 
 .chart-rectangle-grid > .first

@@ -103,6 +103,8 @@
                     if(i > 0) storage[i].style.color = (Number(storage[i].innerHTML) + Number(storage[i - 1].innerHTML)) > 0 ? 'var(--color-usage-postfix)' : '';
                     else storage[i].style.color = Number(storage[i].innerHTML) > 0 ? 'var(--color-usage-postfix)' : '';
                 }
+                document.getElementById(id + '-net-up').innerHTML = formatBytes(usage.networkUpload);
+                document.getElementById(id + '-net-down').innerHTML = formatBytes(usage.networkDownload);
             }
 
             function newCard(backend, color) {
@@ -116,6 +118,8 @@
                                     <div class = "hw-type">${name}</div>
                                     <div class = "hw-name">${online ? backend.info.machine.operatingSystem : '-'}</div>
                                 </div>
+                                <div style="height:1.48rem;border-bottom: 1px solid;border-image: linear-gradient(to right, rgba(129, 199, 212, 1), rgba(180, 129, 187, 1));border-image-slice: 1;color: rgba(129, 199, 212, 1);font-family: var(--font-family-roboto);position: absolute;right: 2.88rem;top: 0.562rem;"><span id="${id}-net-up"></span> ↑</div>
+                                <div style="color: rgba(200, 100, 187, 1);font-family: var(--font-family-roboto);position: absolute;right: 2.88rem;top: 1.962rem;"><span id="${id}-net-down"></span> ↓</div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-4 usage" style="left: 5.5%; width: 28%;">
@@ -192,7 +196,7 @@
                     setUsage(backend.id, backend.usage);
                 }
                 function setListWebSocket() {
-                    const socket = useWebSocket('status:all').then(socket => {
+                    useWebSocket('status:all').then(socket => {
                         socket.onmessage = (e) => {
                             const data = JSON.parse(e.data);
                             if(data.event !== 'update') return;
