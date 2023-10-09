@@ -2,7 +2,7 @@
 <html xmlns:th = "http://www.thymeleaf.org" id = "html" theme="light">
     <head>
         <meta charset = "UTF-8">
-        <title>Node List - Lian Ward</title>
+        <title>Node List - {{title}}</title>
         <link rel = "shortcut icon" type = "image/x-icon" href = "static/img/ico/favicon.ico" />
         <link rel = "stylesheet" type = "text/css" href = "static/css/assets/bootstrap.min.css" />
         <link rel = "stylesheet" type = "text/css" href = "static/css/animations.css" />
@@ -56,8 +56,8 @@
                 <div class="col-sm-12">
                     <div class = "list-card" style="background: rgba(143, 119, 181, 0.38); height: calc(var(--max-height-card) / 2); min-height: 0px;">
                         <div style="display: flex;justify-content: center;align-items: center;height: 100%;flex-direction: column;">
-                            <p style="color: white; font-size: 2.38rem;font-family: var(--font-family-roboto);margin-bottom: 0px;margin-top: 9px;">Lian Ward</p>
-                            <p style="color: white; font-size: 1.38rem;font-family: var(--font-family-roboto);">LianZhou's Node Monitor</p>
+                            <p style="color: white; font-size: 2.38rem;font-family: var(--font-family-roboto);margin-bottom: 0px;margin-top: 9px;">{{title}}</p>
+                            <p style="color: white; font-size: 1.38rem;font-family: var(--font-family-roboto);">{{description}}</p>
                         </div>
                     </div>
                 </div>

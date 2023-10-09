@@ -1,29 +1,33 @@
 {
-    "backend": [
-        {
-            "id": "potato1",
-            "name": "potato1",
-            "url": "http://192.168.6.195:4001"
-        },
-        {
-            "id": "potato2",
-            "name": "potato1",
-            "url": "http://192.168.6.195:4001"
-        },
-        {
-            "id": "potato3",
-            "name": "potato1",
-            "url": "http://192.168.6.195:4001"
-        },
-        {
-            "id": "potato4",
-            "name": "potato1",
-            "url": "http://192.168.6.195:4001"
-        },
-        {
-            "id": "potato5",
-            "name": "potato1",
-            "url": "http://192.168.6.195:4001"
-        }
-    ]
+  "site": {
+    "title": "Lian Ward",
+    "description": "LianZhou's Node Monitor"
+  },
+  "backend": [
+    {
+      "id": "potato1",
+      "name": "potato1",
+      "url": "http://192.168.6.195:4001"
+    },
+    {
+      "id": "potato2",
+      "name": "potato1",
+      "url": "http://192.168.6.195:4001"
+    },
+    {
+      "id": "potato3",
+      "name": "potato1",
+      "url": "http://192.168.6.195:4001"
+    },
+    {
+      "id": "potato4",
+      "name": "potato1",
+      "url": "http://192.168.6.195:4001"
+    },
+    {
+      "id": "potato5",
+      "name": "potato1",
+      "url": "http://192.168.6.195:4001"
+    }
+  ]
 }

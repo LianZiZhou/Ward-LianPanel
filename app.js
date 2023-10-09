@@ -69,6 +69,26 @@ setInterval(() => {
 
 const app = express();
 
+function replaceSiteConfig(str) {
+    const siteConfig = JSON.parse(fs.readFileSync('config.json').toString()).site;
+    const keys = Object.keys(siteConfig);
+    for(const key of keys) {
+        str = str.replace(new RegExp(`{{${key}}}`, 'g'), siteConfig[key]);
+    }
+    return str;
+}
+
+function handleIndex(req, res) {
+    res.send(replaceSiteConfig(fs.readFileSync('./public/index.html').toString()));
+}
+
+app.get('/', handleIndex);
+app.get('/index.html', handleIndex);
+
+app.get('/detail.html', (req, res) => {
+    res.send(fs.readFileSync('./public/detail.html').toString());
+});
+
 app.use(express.static('public'));
 
 app.get('/api/backend', (req, res) => {
